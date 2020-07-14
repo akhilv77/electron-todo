@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Todos</title>
+  </head>
+  <body>
+    <h2>My electron todos app</h2>
+    <ul></ul>
+  </body>
+  <script>
+    const electron = require("electron");
+    const { ipcRenderer } = electron;
+    ipcRenderer.on("addTodo", (event, todo) => {
+      console.log("mainTodo", todo);
+      const li = document.createElement("li");
+      const text = document.createTextNode(todo);
+      li.appendChild(text);
+      document.querySelector("ul").appendChild(li);
+    });
+    ipcRenderer.on("deleteTodos", () => {
+      let ul = document.querySelector("ul");
+      ul.innerHTML = "";
+    });
+  </script>
+</html>
